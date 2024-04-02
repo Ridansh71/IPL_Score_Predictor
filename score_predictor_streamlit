@@ -4,12 +4,10 @@ import pickle
 import numpy as np
 import joblib
 
-file = 'ml_model.pkl'
-model=pickle.load(open(file,'rb'))
+file = 'mlJupyter_model.pkl'
+models=pickle.load(open(file,'rb'))
 
-#model = joblib.load('mk_model.pkl')
-
-st.title("IPL SCORE PREDICTION APP",layout='centered')
+st.title("IPL SCORE PREDICTION APP")
 st.image("cricket.png")
 
 expand = st.expander("Description")
@@ -71,14 +69,14 @@ wickets = st.slider('Enter number of wickets fallen: ',0,9)
 col3, col4 = st.columns(2)
 
 with col3:
-    runs_in_prev_5 = st.number_input('Enter the Runs Scored in last 5 overs',min_value=0,max_value=350,format='%i')
+    runs_last_5 = st.number_input('Enter the Runs Scored in last 5 overs',min_value=0,max_value=350,format='%i')
 
 with col4:
-    wickets_in_prev_5 = st.number_input('Enter the wickets fallen in last 5 overs',min_value=0,max_value=10,format='%i')
+    wickets_last_5 = st.number_input('Enter the wickets fallen in last 5 overs',min_value=0,max_value=10,format='%i')
 
-prediction_array = prediction_array + [runs, wickets, overs, runs_in_prev_5,wickets_last_5_overs]
+prediction_array = prediction_array + [runs, wickets, overs, runs_last_5,wickets_last_5]
 prediction_array = np.array([prediction_array])
-predict = model.predict(prediction_array)
+predict = models.predict(prediction_array)
 
 
 if st.button('Predict Score'):
